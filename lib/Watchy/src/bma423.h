@@ -96,27 +96,27 @@ extern "C" {
 #define BMA423_CHIP_ID UINT8_C(0x13)
 
 /**\name Sensor feature size */
-#define BMA423_FEATURE_SIZE     UINT8_C(64)
+#define BMA423_FEATURE_SIZE UINT8_C(64)
 #define BMA423_ANYMOTION_EN_LEN UINT8_C(2)
-#define BMA423_RD_WR_MIN_LEN    UINT8_C(2)
+#define BMA423_RD_WR_MIN_LEN UINT8_C(2)
 
 /**\name Feature offset address */
-#define BMA423_ANY_NO_MOTION_OFFSET   UINT8_C(0x00)
-#define BMA423_STEP_CNTR_OFFSET       UINT8_C(0x36)
+#define BMA423_ANY_NO_MOTION_OFFSET UINT8_C(0x00)
+#define BMA423_STEP_CNTR_OFFSET UINT8_C(0x36)
 #define BMA423_STEP_CNTR_PARAM_OFFSET UINT8_C(0x04)
-#define BMA423_WAKEUP_OFFSET          UINT8_C(0x38)
-#define BMA423_TILT_OFFSET            UINT8_C(0x3A)
-#define BMA423_CONFIG_ID_OFFSET       UINT8_C(0x3C)
-#define BMA423_AXES_REMAP_OFFSET      UINT8_C(0x3E)
+#define BMA423_WAKEUP_OFFSET UINT8_C(0x38)
+#define BMA423_TILT_OFFSET UINT8_C(0x3A)
+#define BMA423_CONFIG_ID_OFFSET UINT8_C(0x3C)
+#define BMA423_AXES_REMAP_OFFSET UINT8_C(0x3E)
 
 /**************************************************************/
 /**\name	Remap Axes */
 /**************************************************************/
-#define BMA423_X_AXIS_MASK      UINT8_C(0x03)
+#define BMA423_X_AXIS_MASK UINT8_C(0x03)
 #define BMA423_X_AXIS_SIGN_MASK UINT8_C(0x04)
-#define BMA423_Y_AXIS_MASK      UINT8_C(0x18)
+#define BMA423_Y_AXIS_MASK UINT8_C(0x18)
 #define BMA423_Y_AXIS_SIGN_MASK UINT8_C(0x20)
-#define BMA423_Z_AXIS_MASK      UINT8_C(0xC0)
+#define BMA423_Z_AXIS_MASK UINT8_C(0xC0)
 #define BMA423_Z_AXIS_SIGN_MASK UINT8_C(0x01)
 
 /**************************************************************/
@@ -125,7 +125,7 @@ extern "C" {
 /**\name Step counter enable macros */
 #define BMA423_STEP_CNTR_EN_POS UINT8_C(4)
 #define BMA423_STEP_CNTR_EN_MSK UINT8_C(0x10)
-#define BMA423_ACTIVITY_EN_MSK  UINT8_C(0x20)
+#define BMA423_ACTIVITY_EN_MSK UINT8_C(0x20)
 
 /**\name Step counter watermark macros */
 #define BMA423_STEP_CNTR_WM_MSK UINT16_C(0x03FF)
@@ -178,49 +178,49 @@ extern "C" {
 /**************************************************************/
 
 /**\name Anymotion/Nomotion axis enable macros */
-#define BMA423_X_AXIS_EN    UINT8_C(0x01)
-#define BMA423_Y_AXIS_EN    UINT8_C(0x02)
-#define BMA423_Z_AXIS_EN    UINT8_C(0x04)
-#define BMA423_ALL_AXIS_EN  UINT8_C(0x07)
+#define BMA423_X_AXIS_EN UINT8_C(0x01)
+#define BMA423_Y_AXIS_EN UINT8_C(0x02)
+#define BMA423_Z_AXIS_EN UINT8_C(0x04)
+#define BMA423_ALL_AXIS_EN UINT8_C(0x07)
 #define BMA423_ALL_AXIS_DIS UINT8_C(0x00)
 
 /**\name Feature enable macros for the sensor */
 #define BMA423_STEP_CNTR UINT8_C(0x01)
 /**\name Below macros are mutually exclusive */
 #define BMA423_ANY_MOTION UINT8_C(0x02)
-#define BMA423_NO_MOTION  UINT8_C(0x04)
-#define BMA423_ACTIVITY   UINT8_C(0x08)
-#define BMA423_TILT       UINT8_C(0x10)
-#define BMA423_WAKEUP     UINT8_C(0x20)
+#define BMA423_NO_MOTION UINT8_C(0x04)
+#define BMA423_ACTIVITY UINT8_C(0x08)
+#define BMA423_TILT UINT8_C(0x10)
+#define BMA423_WAKEUP UINT8_C(0x20)
 
 /**\name Interrupt status macros */
-#define BMA423_STEP_CNTR_INT     UINT8_C(0x02)
-#define BMA423_ACTIVITY_INT      UINT8_C(0x04)
-#define BMA423_TILT_INT          UINT8_C(0x08)
-#define BMA423_WAKEUP_INT        UINT8_C(0x20)
+#define BMA423_STEP_CNTR_INT UINT8_C(0x02)
+#define BMA423_ACTIVITY_INT UINT8_C(0x04)
+#define BMA423_TILT_INT UINT8_C(0x08)
+#define BMA423_WAKEUP_INT UINT8_C(0x20)
 #define BMA423_ANY_NO_MOTION_INT UINT8_C(0x40)
-#define BMA423_ERROR_INT         UINT8_C(0x80)
+#define BMA423_ERROR_INT UINT8_C(0x80)
 
 /**\name Activity recognition macros */
 #define BMA423_USER_STATIONARY UINT8_C(0x00)
-#define BMA423_USER_WALKING    UINT8_C(0x01)
-#define BMA423_USER_RUNNING    UINT8_C(0x02)
-#define BMA423_STATE_INVALID   UINT8_C(0x03)
+#define BMA423_USER_WALKING UINT8_C(0x01)
+#define BMA423_USER_RUNNING UINT8_C(0x02)
+#define BMA423_STATE_INVALID UINT8_C(0x03)
 
 /**\name Configuration selection macros */
 #define BMA423_PHONE_CONFIG UINT8_C(0x00)
 #define BMA423_WRIST_CONFIG UINT8_C(0x01)
 
 /**\name Step counter parameter setting(1-25) for phone */
-#define BMA423_PHONE_SC_PARAM_1  UINT16_C(0x132)
-#define BMA423_PHONE_SC_PARAM_2  UINT16_C(0x78E6)
-#define BMA423_PHONE_SC_PARAM_3  UINT16_C(0x84)
-#define BMA423_PHONE_SC_PARAM_4  UINT16_C(0x6C9C)
-#define BMA423_PHONE_SC_PARAM_5  UINT8_C(0x07)
-#define BMA423_PHONE_SC_PARAM_6  UINT16_C(0x7564)
-#define BMA423_PHONE_SC_PARAM_7  UINT16_C(0x7EAA)
-#define BMA423_PHONE_SC_PARAM_8  UINT16_C(0x55F)
-#define BMA423_PHONE_SC_PARAM_9  UINT16_C(0xABE)
+#define BMA423_PHONE_SC_PARAM_1 UINT16_C(0x132)
+#define BMA423_PHONE_SC_PARAM_2 UINT16_C(0x78E6)
+#define BMA423_PHONE_SC_PARAM_3 UINT16_C(0x84)
+#define BMA423_PHONE_SC_PARAM_4 UINT16_C(0x6C9C)
+#define BMA423_PHONE_SC_PARAM_5 UINT8_C(0x07)
+#define BMA423_PHONE_SC_PARAM_6 UINT16_C(0x7564)
+#define BMA423_PHONE_SC_PARAM_7 UINT16_C(0x7EAA)
+#define BMA423_PHONE_SC_PARAM_8 UINT16_C(0x55F)
+#define BMA423_PHONE_SC_PARAM_9 UINT16_C(0xABE)
 #define BMA423_PHONE_SC_PARAM_10 UINT16_C(0x55F)
 #define BMA423_PHONE_SC_PARAM_11 UINT16_C(0xE896)
 #define BMA423_PHONE_SC_PARAM_12 UINT16_C(0x41EF)
@@ -239,15 +239,15 @@ extern "C" {
 #define BMA423_PHONE_SC_PARAM_25 UINT8_C(0x00)
 
 /**\name Step counter parameter setting(1-25) for wrist (Default) */
-#define BMA423_WRIST_SC_PARAM_1  UINT16_C(0x12D)
-#define BMA423_WRIST_SC_PARAM_2  UINT16_C(0x7BD4)
-#define BMA423_WRIST_SC_PARAM_3  UINT16_C(0x13B)
-#define BMA423_WRIST_SC_PARAM_4  UINT16_C(0x7ADB)
-#define BMA423_WRIST_SC_PARAM_5  UINT8_C(0x04)
-#define BMA423_WRIST_SC_PARAM_6  UINT16_C(0x7B3F)
-#define BMA423_WRIST_SC_PARAM_7  UINT16_C(0x6CCD)
-#define BMA423_WRIST_SC_PARAM_8  UINT16_C(0x4C3)
-#define BMA423_WRIST_SC_PARAM_9  UINT16_C(0x985)
+#define BMA423_WRIST_SC_PARAM_1 UINT16_C(0x12D)
+#define BMA423_WRIST_SC_PARAM_2 UINT16_C(0x7BD4)
+#define BMA423_WRIST_SC_PARAM_3 UINT16_C(0x13B)
+#define BMA423_WRIST_SC_PARAM_4 UINT16_C(0x7ADB)
+#define BMA423_WRIST_SC_PARAM_5 UINT8_C(0x04)
+#define BMA423_WRIST_SC_PARAM_6 UINT16_C(0x7B3F)
+#define BMA423_WRIST_SC_PARAM_7 UINT16_C(0x6CCD)
+#define BMA423_WRIST_SC_PARAM_8 UINT16_C(0x4C3)
+#define BMA423_WRIST_SC_PARAM_9 UINT16_C(0x985)
 #define BMA423_WRIST_SC_PARAM_10 UINT16_C(0x4C3)
 #define BMA423_WRIST_SC_PARAM_11 UINT16_C(0xE6EC)
 #define BMA423_WRIST_SC_PARAM_12 UINT16_C(0x460C)
@@ -269,81 +269,81 @@ extern "C" {
  * @brief Any motion configuration
  */
 struct bma423_anymotion_config {
-  /*! Expressed in 50 Hz samples (20 ms) */
-  uint16_t duration;
-  /*! Threshold value for Any-motion / No-motion detection in
-  5.11g format */
-  uint16_t threshold;
-  /*! Indicates if No-motion or Any-motion is selected */
-  uint8_t nomotion_sel;
+    /*! Expressed in 50 Hz samples (20 ms) */
+    uint16_t duration;
+    /*! Threshold value for Any-motion / No-motion detection in
+    5.11g format */
+    uint16_t threshold;
+    /*! Indicates if No-motion or Any-motion is selected */
+    uint8_t nomotion_sel;
 };
 
 /*!
  * @brief Axes remapping configuration
  */
 struct bma423_axes_remap {
-  uint8_t x_axis;
-  uint8_t x_axis_sign;
-  uint8_t y_axis;
-  uint8_t y_axis_sign;
-  uint8_t z_axis;
-  uint8_t z_axis_sign;
+    uint8_t x_axis;
+    uint8_t x_axis_sign;
+    uint8_t y_axis;
+    uint8_t y_axis_sign;
+    uint8_t z_axis;
+    uint8_t z_axis_sign;
 };
 
 /*!
  * @brief Step counter param settings
  */
 struct bma423_stepcounter_settings {
-  /*! Step Counter param 1 */
-  uint16_t param1;
-  /*! Step Counter param 2 */
-  uint16_t param2;
-  /*! Step Counter param 3 */
-  uint16_t param3;
-  /*! Step Counter param 4 */
-  uint16_t param4;
-  /*! Step Counter param 5 */
-  uint16_t param5;
-  /*! Step Counter param 6 */
-  uint16_t param6;
-  /*! Step Counter param 7 */
-  uint16_t param7;
-  /*! Step Counter param 8 */
-  uint16_t param8;
-  /*! Step Counter param 9 */
-  uint16_t param9;
-  /*! Step Counter param 10 */
-  uint16_t param10;
-  /*! Step Counter param 11 */
-  uint16_t param11;
-  /*! Step Counter param 12 */
-  uint16_t param12;
-  /*! Step Counter param 13 */
-  uint16_t param13;
-  /*! Step Counter param 14 */
-  uint16_t param14;
-  /*! Step Counter param 15 */
-  uint16_t param15;
-  /*! Step Counter param 16 */
-  uint16_t param16;
-  /*! Step Counter param 17 */
-  uint16_t param17;
-  /*! Step Counter param 18 */
-  uint16_t param18;
-  /*! Step Counter param 19 */
-  uint16_t param19;
-  /*! Step Counter param 20 */
-  uint16_t param20;
-  /*! Step Counter param 21 */
-  uint16_t param21;
-  /*! Step Counter param 22 */
-  uint16_t param22;
-  /*! Step Counter param 23 */
-  uint16_t param23;
-  /*! Step Counter param 24 */
-  uint16_t param24;
-  /*! Step Counter param 25 */
-  uint16_t param25;
+    /*! Step Counter param 1 */
+    uint16_t param1;
+    /*! Step Counter param 2 */
+    uint16_t param2;
+    /*! Step Counter param 3 */
+    uint16_t param3;
+    /*! Step Counter param 4 */
+    uint16_t param4;
+    /*! Step Counter param 5 */
+    uint16_t param5;
+    /*! Step Counter param 6 */
+    uint16_t param6;
+    /*! Step Counter param 7 */
+    uint16_t param7;
+    /*! Step Counter param 8 */
+    uint16_t param8;
+    /*! Step Counter param 9 */
+    uint16_t param9;
+    /*! Step Counter param 10 */
+    uint16_t param10;
+    /*! Step Counter param 11 */
+    uint16_t param11;
+    /*! Step Counter param 12 */
+    uint16_t param12;
+    /*! Step Counter param 13 */
+    uint16_t param13;
+    /*! Step Counter param 14 */
+    uint16_t param14;
+    /*! Step Counter param 15 */
+    uint16_t param15;
+    /*! Step Counter param 16 */
+    uint16_t param16;
+    /*! Step Counter param 17 */
+    uint16_t param17;
+    /*! Step Counter param 18 */
+    uint16_t param18;
+    /*! Step Counter param 19 */
+    uint16_t param19;
+    /*! Step Counter param 20 */
+    uint16_t param20;
+    /*! Step Counter param 21 */
+    uint16_t param21;
+    /*! Step Counter param 22 */
+    uint16_t param22;
+    /*! Step Counter param 23 */
+    uint16_t param23;
+    /*! Step Counter param 24 */
+    uint16_t param24;
+    /*! Step Counter param 25 */
+    uint16_t param25;
 };
 
 /*!
@@ -420,8 +420,8 @@ uint16_t bma423_get_config_id(uint16_t *config_id, struct bma4_dev *dev);
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_map_interrupt(uint8_t int_line, uint16_t int_map,
-                              uint8_t enable, struct bma4_dev *dev);
+uint16_t bma423_map_interrupt(uint8_t int_line, uint16_t int_map, uint8_t enable,
+                              struct bma4_dev *dev);
 
 /*!
  *	@brief This API reads the bma423 interrupt status from the sensor.
@@ -478,8 +478,7 @@ uint16_t bma423_read_int_status(uint16_t *int_status, struct bma4_dev *dev);
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_feature_enable(uint8_t feature, uint8_t enable,
-                               struct bma4_dev *dev);
+uint16_t bma423_feature_enable(uint8_t feature, uint8_t enable, struct bma4_dev *dev);
 
 /*!
  *	@brief This API performs x, y and z axis remapping in the sensor.
@@ -491,8 +490,7 @@ uint16_t bma423_feature_enable(uint8_t feature, uint8_t enable,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_set_remap_axes(const struct bma423_axes_remap *remap_data,
-                               struct bma4_dev *dev);
+uint16_t bma423_set_remap_axes(const struct bma423_axes_remap *remap_data, struct bma4_dev *dev);
 
 /*!
  *	@brief This API reads the x, y and z axis remap data from the sensor.
@@ -505,8 +503,7 @@ uint16_t bma423_set_remap_axes(const struct bma423_axes_remap *remap_data,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_get_remap_axes(struct bma423_axes_remap *remap_data,
-                               struct bma4_dev *dev);
+uint16_t bma423_get_remap_axes(struct bma423_axes_remap *remap_data, struct bma4_dev *dev);
 
 /*!
  *	@brief This API sets the watermark level for step counter
@@ -522,8 +519,7 @@ uint16_t bma423_get_remap_axes(struct bma423_axes_remap *remap_data,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_step_counter_set_watermark(uint16_t step_counter_wm,
-                                           struct bma4_dev *dev);
+uint16_t bma423_step_counter_set_watermark(uint16_t step_counter_wm, struct bma4_dev *dev);
 
 /*!
  *	@brief This API gets the water mark level set for step counter interrupt
@@ -539,8 +535,7 @@ uint16_t bma423_step_counter_set_watermark(uint16_t step_counter_wm,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_step_counter_get_watermark(uint16_t *step_counter_wm,
-                                           struct bma4_dev *dev);
+uint16_t bma423_step_counter_get_watermark(uint16_t *step_counter_wm, struct bma4_dev *dev);
 
 /*!
  *	@brief This API resets the counted steps of step counter.
@@ -615,9 +610,8 @@ uint16_t bma423_select_platform(uint8_t platform, struct bma4_dev *dev);
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t
-bma423_stepcounter_get_parameter(struct bma423_stepcounter_settings *setting,
-                                 struct bma4_dev *dev);
+uint16_t bma423_stepcounter_get_parameter(struct bma423_stepcounter_settings *setting,
+                                          struct bma4_dev *dev);
 
 /*!
  *	@brief This API sets the parameter1 to parameter7 settings of the
@@ -631,8 +625,8 @@ bma423_stepcounter_get_parameter(struct bma423_stepcounter_settings *setting,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_stepcounter_set_parameter(
-    const struct bma423_stepcounter_settings *setting, struct bma4_dev *dev);
+uint16_t bma423_stepcounter_set_parameter(const struct bma423_stepcounter_settings *setting,
+                                          struct bma4_dev *dev);
 
 /*!
  *	@brief This API enables or disables the step detector feature in the
@@ -708,9 +702,8 @@ uint16_t bma423_anymotion_enable_axis(uint8_t axis, struct bma4_dev *dev);
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t
-bma423_set_any_motion_config(const struct bma423_anymotion_config *any_motion,
-                             struct bma4_dev *dev);
+uint16_t bma423_set_any_motion_config(const struct bma423_anymotion_config *any_motion,
+                                      struct bma4_dev *dev);
 
 /*!	@brief	This API gets the configuration of any motion feature from
  *	the sensor.
@@ -748,9 +741,8 @@ bma423_set_any_motion_config(const struct bma423_anymotion_config *any_motion,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t
-bma423_get_any_motion_config(struct bma423_anymotion_config *any_motion,
-                             struct bma4_dev *dev);
+uint16_t bma423_get_any_motion_config(struct bma423_anymotion_config *any_motion,
+                                      struct bma4_dev *dev);
 
 /*!
  *	@brief This API sets the sensitivity of wake up feature in the sensor
@@ -767,8 +759,7 @@ bma423_get_any_motion_config(struct bma423_anymotion_config *any_motion,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_wakeup_set_sensitivity(uint8_t sensitivity,
-                                       struct bma4_dev *dev);
+uint16_t bma423_wakeup_set_sensitivity(uint8_t sensitivity, struct bma4_dev *dev);
 
 /*!
  *	@brief This API gets the sensitivity of wake up feature in the sensor
@@ -785,8 +776,7 @@ uint16_t bma423_wakeup_set_sensitivity(uint8_t sensitivity,
  *	@retval 0 -> Success
  *	@retval Any non zero value -> Fail
  */
-uint16_t bma423_wakeup_get_sensitivity(uint8_t *sensitivity,
-                                       struct bma4_dev *dev);
+uint16_t bma423_wakeup_get_sensitivity(uint8_t *sensitivity, struct bma4_dev *dev);
 
 /*!
  *	@brief This API is used to select single/double tap
