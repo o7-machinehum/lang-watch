@@ -16,6 +16,8 @@ RTC_DATA_ATTR long gmtOffset = 0;
 RTC_DATA_ATTR bool alreadyInMenu = true;
 RTC_DATA_ATTR tmElements_t bootTime;
 
+RTC_DATA_ATTR int langmenuIndex;
+
 void Watchy::init(String datetime) {
     esp_sleep_wakeup_cause_t wakeup_reason;
     wakeup_reason = esp_sleep_get_wakeup_cause();  // get wake up reason
@@ -105,7 +107,7 @@ void Watchy::handleButtonPress() {
         } else if (guiState == MAIN_MENU_STATE) {  // if already in menu, then select menu item
             switch (menuIndex) {
                 case 0:
-                    showQuiz();
+                    showTlWord();
                     break;
                 case 1:
                     showBuzz();
@@ -157,6 +159,7 @@ void Watchy::handleButtonPress() {
             return;
         }
     }
+
     // Down Button
     else if (wakeupBit & DOWN_BTN_MASK) {
         if (guiState == MAIN_MENU_STATE) {  // decrement menu index
@@ -186,7 +189,7 @@ void Watchy::handleButtonPress() {
                 if (guiState == MAIN_MENU_STATE) {  // if already in menu, then select menu item
                     switch (menuIndex) {
                         case 0:
-                            showQuiz();
+                            showTlWord();
                             break;
                         case 1:
                             showBuzz();
@@ -220,6 +223,16 @@ void Watchy::handleButtonPress() {
                     break;  // leave loop
                 } else if (guiState == APP_STATE) {
                     showMenu(menuIndex, false);  // exit to menu if already in app
+                } else if (guiState == LANG_STATE) {
+                    if(langmenuIndex == TL_WORD_INDEX) {
+                        showTlSentence();
+                    }
+                    else if(langmenuIndex == TL_SENTENCE_INDEX) {
+                        showNativeWord();
+                    }
+                    else {
+                        showWatchFace(true);
+                    }
                 } else if (guiState == FW_UPDATE_STATE) {
                     showMenu(menuIndex, false);  // exit to menu if already in app
                 }
@@ -244,6 +257,49 @@ void Watchy::handleButtonPress() {
             }
         }
     }
+}
+
+void Watchy::showTlWord() {
+    display.setFullWindow();
+    display.fillScreen(GxEPD_BLACK);
+    display.setFont(&FreeMonoBold9pt7b);
+    display.setTextColor(GxEPD_WHITE);
+    display.setCursor(0, 20);
+
+    display.print("German Word Here");
+    display.display(false);  // full refresh
+    display.println(WATCHY_LIB_VER);
+
+    guiState = LANG_STATE;
+    langmenuIndex = TL_WORD_INDEX;
+}
+
+void Watchy::showTlSentence() {
+    display.setFullWindow();
+    display.fillScreen(GxEPD_BLACK);
+    display.setFont(&FreeMonoBold9pt7b);
+    display.setTextColor(GxEPD_WHITE);
+    display.setCursor(0, 20);
+
+    display.print("German Sentence Here");
+    display.display(false);  // full refresh
+    display.println(WATCHY_LIB_VER);
+
+    langmenuIndex = TL_SENTENCE_INDEX;
+}
+
+void Watchy::showNativeWord() {
+    display.setFullWindow();
+    display.fillScreen(GxEPD_BLACK);
+    display.setFont(&FreeMonoBold9pt7b);
+    display.setTextColor(GxEPD_WHITE);
+    display.setCursor(0, 20);
+
+    display.print("Native word here");
+    display.display(false);  // full refresh
+    display.println(WATCHY_LIB_VER);
+
+    langmenuIndex = TL_SENTENCE_INDEX;
 }
 
 void Watchy::showMenu(byte menuIndex, bool partialRefresh) {
@@ -348,19 +404,7 @@ void Watchy::showAbout() {
     guiState = APP_STATE;
 }
 
-void Watchy::showQuiz() {
-    display.setFullWindow();
-    display.fillScreen(GxEPD_BLACK);
-    display.setFont(&FreeMonoBold9pt7b);
-    display.setTextColor(GxEPD_WHITE);
-    display.setCursor(0, 20);
 
-    display.print("German Word Here");
-    display.display(false);  // full refresh
-    display.println(WATCHY_LIB_VER);
-
-    guiState = APP_STATE;
-}
 
 void Watchy::showBuzz() {
     display.setFullWindow();

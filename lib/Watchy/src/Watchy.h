@@ -60,7 +60,9 @@ class Watchy {
     void showMenu(byte menuIndex, bool partialRefresh);
     void showFastMenu(byte menuIndex);
     void showAbout();
-    void showQuiz();
+    void showTlWord();
+    void showTlSentence();
+    void showNativeWord();
     void showBuzz();
     void showAccelerometer();
     void showUpdateFW();
@@ -92,5 +94,10 @@ extern RTC_DATA_ATTR int menuIndex;
 extern RTC_DATA_ATTR BMA423 sensor;
 extern RTC_DATA_ATTR bool WIFI_CONFIGURED;
 extern RTC_DATA_ATTR bool BLE_CONFIGURED;
+
+#define TL_WORD_INDEX 0
+#define TL_SENTENCE_INDEX 1
+#define NATIVE_WORD_INDEX 2
+extern RTC_DATA_ATTR int langmenuIndex;
 
 #endif
