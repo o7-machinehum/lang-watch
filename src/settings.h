@@ -37,7 +37,7 @@ watchySettings settings{
     .weatherUpdateInterval = WEATHER_UPDATE_INTERVAL,
     .ntpServer = NTP_SERVER,
     .gmtOffset = GMT_OFFSET_SEC,
-    .vibrateOClock = false,
+    .vibrateOClock = true,
 };
 
 #endif

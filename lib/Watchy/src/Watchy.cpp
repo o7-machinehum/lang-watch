@@ -18,6 +18,36 @@ RTC_DATA_ATTR tmElements_t bootTime;
 
 RTC_DATA_ATTR int langmenuIndex;
 
+RTC_DATA_ATTR langDict myDict = {
+    .TlWord = {
+        "Anfangen",
+        "fruh",
+        "schliessen",
+        "unterschied",
+        "probieren"
+    },
+    .TlSentence = {
+        "Ich werde morgen \n\r mit dem Lernen anfangen.",
+        "Ich stehe frueh\n\r auf.",
+        "Ich werde die\n\r Tuer schliessen.",
+        "Der Unterschied\n\r ist klein..",
+        "Ich moechte\n\r das probieren."
+    },
+    .NlWord = {
+        "Begin",
+        "early",
+        "close",
+        "difference",
+        "try"
+    },
+    .known = {false, false, false, false, false},
+    .current_word = 0,
+    .tl_or_nl = false,
+    .num_learned = 0,
+};
+
+
+
 void Watchy::init(String datetime) {
     esp_sleep_wakeup_cause_t wakeup_reason;
     wakeup_reason = esp_sleep_get_wakeup_cause();  // get wake up reason
@@ -37,11 +67,10 @@ void Watchy::init(String datetime) {
             switch (guiState) {
                 case WATCHFACE_STATE:
                     showWatchFace(true);  // partial updates on tick
-                    if (settings.vibrateOClock) {
-                        if (currentTime.Minute == 0) {
-                            // The RTC wakes us up once per minute
-                            vibMotor(75, 4);
-                        }
+                    if ((currentTime.Minute == 0 || currentTime.Minute == 15 || currentTime.Minute == 30 || currentTime.Minute == 45) && (currentTime.Hour < 21 && currentTime.Hour > 9)) {
+                        // The RTC wakes us up once per minute
+                        vibMotor(75, 4);
+                        showTlWord();
                     }
                     break;
                 case MAIN_MENU_STATE:
@@ -230,8 +259,10 @@ void Watchy::handleButtonPress() {
                     else if(langmenuIndex == TL_SENTENCE_INDEX) {
                         showNativeWord();
                     }
-                    else {
-                        showWatchFace(true);
+                    else if (langmenuIndex == NATIVE_WORD_INDEX){
+                        RTC.read(currentTime);
+                        showWatchFace(false);
+                        break;
                     }
                 } else if (guiState == FW_UPDATE_STATE) {
                     showMenu(menuIndex, false);  // exit to menu if already in app
@@ -244,6 +275,12 @@ void Watchy::handleButtonPress() {
                         menuIndex = MENU_LENGTH - 1;
                     }
                     showFastMenu(menuIndex);
+                } else if (guiState == LANG_STATE) {
+                    myDict.known[myDict.current_word] = true;
+                    myDict.num_learned++;
+                    RTC.read(currentTime);
+                    showWatchFace(false);
+                    break;
                 }
             } else if (digitalRead(DOWN_BTN_PIN) == 1) {
                 lastTimeout = millis();
@@ -253,6 +290,10 @@ void Watchy::handleButtonPress() {
                         menuIndex = 0;
                     }
                     showFastMenu(menuIndex);
+                } else if (guiState == LANG_STATE) {
+                    RTC.read(currentTime);
+                    showWatchFace(false);
+                    break;
                 }
             }
         }
@@ -264,10 +305,45 @@ void Watchy::showTlWord() {
     display.fillScreen(GxEPD_BLACK);
     display.setFont(&FreeMonoBold9pt7b);
     display.setTextColor(GxEPD_WHITE);
-    display.setCursor(0, 20);
+    display.setCursor(70, 80);
 
-    display.print("German Word Here");
-    display.display(false);  // full refresh
+    if(myDict.num_learned >= NUM_WORDS) {
+        RTC.read(currentTime);
+        showWatchFace(false);
+        return;
+    }
+
+    do {
+        randomSeed(analogRead(0));
+        myDict.current_word = random(0, NUM_WORDS);
+    } while(myDict.known[myDict.current_word] == true);
+
+    int num = random(0,100);
+    if(num > 50) {
+        myDict.tl_or_nl = true;
+    }
+    else {
+        myDict.tl_or_nl = false;
+    }
+
+    // English or German first
+    if(myDict.tl_or_nl) {
+        display.print(myDict.TlWord[myDict.current_word]);
+    }
+    else {
+        display.print(myDict.NlWord[myDict.current_word]);
+    }
+
+    display.setCursor(2, 20);
+    display.print("Next");
+
+    display.setCursor(150, 20);
+    display.print("Flag");
+
+    display.setCursor(150, 190);
+    display.print("Keep");
+
+    display.display(false);
     display.println(WATCHY_LIB_VER);
 
     guiState = LANG_STATE;
@@ -279,11 +355,20 @@ void Watchy::showTlSentence() {
     display.fillScreen(GxEPD_BLACK);
     display.setFont(&FreeMonoBold9pt7b);
     display.setTextColor(GxEPD_WHITE);
-    display.setCursor(0, 20);
+    display.setCursor(2, 80);
 
-    display.print("German Sentence Here");
-    display.display(false);  // full refresh
-    display.println(WATCHY_LIB_VER);
+    display.print(myDict.TlSentence[myDict.current_word]);
+
+    display.setCursor(2, 20);
+    display.print("Next");
+
+    display.setCursor(150, 20);
+    display.print("Flag");
+
+    display.setCursor(150, 190);
+    display.print("Keep");
+
+    display.display(true);
 
     langmenuIndex = TL_SENTENCE_INDEX;
 }
@@ -293,13 +378,27 @@ void Watchy::showNativeWord() {
     display.fillScreen(GxEPD_BLACK);
     display.setFont(&FreeMonoBold9pt7b);
     display.setTextColor(GxEPD_WHITE);
-    display.setCursor(0, 20);
+    display.setCursor(70, 80);
 
-    display.print("Native word here");
-    display.display(false);  // full refresh
-    display.println(WATCHY_LIB_VER);
+    if(myDict.tl_or_nl) {
+        display.print(myDict.NlWord[myDict.current_word]);
+    }
+    else {
+        display.print(myDict.TlWord[myDict.current_word]);
+    }
 
-    langmenuIndex = TL_SENTENCE_INDEX;
+    display.setCursor(2, 20);
+    display.print("Next");
+
+    display.setCursor(150, 20);
+    display.print("Flag");
+
+    display.setCursor(150, 190);
+    display.print("Keep");
+
+    display.display(true);
+
+    langmenuIndex = NATIVE_WORD_INDEX ;
 }
 
 void Watchy::showMenu(byte menuIndex, bool partialRefresh) {

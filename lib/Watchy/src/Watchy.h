@@ -41,6 +41,17 @@ typedef struct watchySettings {
     bool vibrateOClock;
 } watchySettings;
 
+#define NUM_WORDS 5
+typedef struct langDict {
+    const char *TlWord[NUM_WORDS];
+    const char *TlSentence[NUM_WORDS];
+    const char *NlWord[NUM_WORDS];
+    bool known[NUM_WORDS];
+    int current_word;
+    bool tl_or_nl;
+    int num_learned;
+} langDict;
+
 class Watchy {
    public:
     static WatchyRTC RTC;
