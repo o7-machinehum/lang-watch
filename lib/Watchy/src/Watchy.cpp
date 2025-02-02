@@ -24,29 +24,39 @@ RTC_DATA_ATTR langDict myDict = {
         "fruh",
         "schliessen",
         "unterschied",
-        "probieren"
+        "probieren",
+        "ernst",
+        "Bedeuten",
+        "Genug",
+        "Bequem",
     },
     .TlSentence = {
         "Ich werde morgen \n\r mit dem Lernen anfangen.",
         "Ich stehe frueh\n\r auf.",
         "Ich werde die\n\r Tuer schliessen.",
         "Der Unterschied\n\r ist klein..",
-        "Ich moechte\n\r das probieren."
+        "Ich moechte\n\r das probieren.",
+        "Meinst du das\n\r ernst?",
+        "Was soll das\n\r bedeuten?",
+        "Ich habe genug\n\r Zeit, um dir zu helfen.",
+        "Der Stuhl ist\n\r sehr bequem.",
     },
     .NlWord = {
         "Begin",
         "early",
         "close",
         "difference",
-        "try"
+        "try",
+        "serious",
+        "mean",
+        "enough",
+        "comfortable"
     },
-    .known = {false, false, false, false, false},
+    .known = {NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN},
     .current_word = 0,
     .tl_or_nl = false,
     .num_learned = 0,
 };
-
-
 
 void Watchy::init(String datetime) {
     esp_sleep_wakeup_cause_t wakeup_reason;
@@ -276,7 +286,7 @@ void Watchy::handleButtonPress() {
                     }
                     showFastMenu(menuIndex);
                 } else if (guiState == LANG_STATE) {
-                    myDict.known[myDict.current_word] = true;
+                    myDict.known[myDict.current_word]++;
                     myDict.num_learned++;
                     RTC.read(currentTime);
                     showWatchFace(false);
@@ -307,7 +317,7 @@ void Watchy::showTlWord() {
     display.setTextColor(GxEPD_WHITE);
     display.setCursor(70, 80);
 
-    if(myDict.num_learned >= NUM_WORDS) {
+    if(myDict.num_learned >= NUM_WORDS*2) {
         RTC.read(currentTime);
         showWatchFace(false);
         return;
@@ -315,11 +325,10 @@ void Watchy::showTlWord() {
 
     do {
         randomSeed(analogRead(0));
-        myDict.current_word = random(0, NUM_WORDS);
-    } while(myDict.known[myDict.current_word] == true);
+        myDict.current_word = random(0, (NUM_WORDS-1));
+    } while(myDict.known[myDict.current_word] == KNOWN);
 
-    int num = random(0,100);
-    if(num > 50) {
+    if(myDict.known[myDict.current_word] == NOT_KNOWN) {
         myDict.tl_or_nl = true;
     }
     else {
@@ -410,7 +419,7 @@ void Watchy::showMenu(byte menuIndex, bool partialRefresh) {
     uint16_t w, h;
     int16_t yPos;
 
-    const char *menuItems[] = {"About Watchy", "Vibrate Motor", "Show Accelerometer",
+    const char *menuItems[] = {"Language Test", "Vibrate Motor", "Show Accelerometer",
                                "Set Time",     "Setup WiFi",    "Update Firmware",
                                "Sync NTP"};
     for (int i = 0; i < MENU_LENGTH; i++) {
