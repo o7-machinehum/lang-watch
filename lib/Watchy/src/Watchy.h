@@ -41,7 +41,7 @@ typedef struct watchySettings {
     bool vibrateOClock;
 } watchySettings;
 
-#define NUM_WORDS 9
+#define NUM_WORDS 11
 
 #define NOT_KNOWN 0
 #define TL_TO_NL_KNOWN 1
@@ -50,6 +50,7 @@ typedef struct langDict {
     const char *TlWord[NUM_WORDS];
     const char *TlSentence[NUM_WORDS];
     const char *NlWord[NUM_WORDS];
+    const char *NlSentence[NUM_WORDS];
     uint8_t known[NUM_WORDS];
     size_t current_word;
     bool tl_or_nl;
@@ -77,6 +78,7 @@ class Watchy {
     void showAbout();
     void showTlWord();
     void showTlSentence();
+    void showNlSentence();
     void showNativeWord();
     void showBuzz();
     void showAccelerometer();
@@ -113,6 +115,7 @@ extern RTC_DATA_ATTR bool BLE_CONFIGURED;
 #define TL_WORD_INDEX 0
 #define TL_SENTENCE_INDEX 1
 #define NATIVE_WORD_INDEX 2
+#define NL_SENTENCE_INDEX 3
 extern RTC_DATA_ATTR int langmenuIndex;
 
 #endif

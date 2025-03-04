@@ -18,45 +18,66 @@ RTC_DATA_ATTR tmElements_t bootTime;
 
 RTC_DATA_ATTR int langmenuIndex;
 
+
 RTC_DATA_ATTR langDict myDict = {
     .TlWord = {
-        "Anfangen",
-        "fruh",
-        "schliessen",
-        "unterschied",
-        "probieren",
-        "ernst",
-        "Bedeuten",
-        "Genug",
-        "Bequem",
+        "bekommen",
+        "besetzt",
+        "Deshalb",
+        "boese",
+        "Boden",
+        "besuchen",
+        "verstehen",
+        "reisen",
+        "unabhaengig",
+        "ueberzeugen",
+        "herausfordern"
     },
     .TlSentence = {
-        "Ich werde morgen \n\r mit dem Lernen anfangen.",
-        "Ich stehe frueh\n\r auf.",
-        "Ich werde die\n\r Tuer schliessen.",
-        "Der Unterschied\n\r ist klein..",
-        "Ich moechte\n\r das probieren.",
-        "Meinst du das\n\r ernst?",
-        "Was soll das\n\r bedeuten?",
-        "Ich habe genug\n\r Zeit, um dir zu helfen.",
-        "Der Stuhl ist\n\r sehr bequem.",
+        "Ich habe heute \n\rein Geschenk bekommen.",
+        "Der Raum ist besetzt.",
+        "Ich lerne Deutsch, \n\rdeshalb mache ich Fortschritte.",
+        "Er ist boese, weil \n\rer sein Spiel verloren hat.",
+        "Der Hund liegt \n\rauf dem Boden.",
+        "Ich besuche meine \n\rFreunde am Wochenende.",
+        "Ich verstehe die \n\rAufgabe nicht.",
+        "Wir reisen im \n\rSommer nach Italien.",
+        "Sie moechte unabhaengig \n\rvon ihren Eltern leben.",
+        "Er konnte mich von \n\rseinem Plan ueberzeugen.",
+        "Die schwierige \n\rAufgabe fordert uns heraus."
     },
     .NlWord = {
-        "Begin",
-        "early",
-        "close",
-        "difference",
-        "try",
-        "serious",
-        "mean",
-        "enough",
-        "comfortable"
+        "receive",
+        "occupied",
+        "therefore",
+        "angry",
+        "floor",
+        "visit",
+        "understand",
+        "travel",
+        "independent",
+        "convince",
+        "challenge"
     },
-    .known = {NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN},
+    .NlSentence = {
+        "I received a \n\rpresent today.",
+        "The room is occupied.",
+        "I am learning \n\rGerman, therefore I am making progress.",
+        "He is angry because \n\rhe lost his game.",
+        "The dog is lying \n\ron the floor.",
+        "I visit my friends \n\ron the weekend.",
+        "I do not \n\runderstand the task.",
+        "We travel to \n\rItaly in the summer.",
+        "She wants to \n\rlive independently from her parents.",
+        "He was able to \n\rconvince me of his plan.",
+        "The difficult \n\rtask challenges us."
+    },
+    .known = {NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN, NOT_KNOWN},
     .current_word = 0,
     .tl_or_nl = false,
     .num_learned = 0,
 };
+
 
 void Watchy::init(String datetime) {
     esp_sleep_wakeup_cause_t wakeup_reason;
@@ -270,6 +291,9 @@ void Watchy::handleButtonPress() {
                         showNativeWord();
                     }
                     else if (langmenuIndex == NATIVE_WORD_INDEX){
+                        showNlSentence();
+                    }
+                    else if (langmenuIndex == NL_SENTENCE_INDEX){
                         RTC.read(currentTime);
                         showWatchFace(false);
                         break;
@@ -408,6 +432,29 @@ void Watchy::showNativeWord() {
     display.display(true);
 
     langmenuIndex = NATIVE_WORD_INDEX ;
+}
+
+void Watchy::showNlSentence() {
+    display.setFullWindow();
+    display.fillScreen(GxEPD_BLACK);
+    display.setFont(&FreeMonoBold9pt7b);
+    display.setTextColor(GxEPD_WHITE);
+    display.setCursor(2, 80);
+
+    display.print(myDict.NlSentence[myDict.current_word]);
+
+    display.setCursor(2, 20);
+    display.print("Next");
+
+    display.setCursor(150, 20);
+    display.print("Flag");
+
+    display.setCursor(150, 190);
+    display.print("Keep");
+
+    display.display(true);
+
+    langmenuIndex = NL_SENTENCE_INDEX;
 }
 
 void Watchy::showMenu(byte menuIndex, bool partialRefresh) {
